@@ -1,5 +1,10 @@
-import requests
+import os
 import re
+try:
+    import requests
+except:
+    os.system('pip install requests')
+    import requests
 
 
 data = {}
