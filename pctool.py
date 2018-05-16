@@ -24,7 +24,7 @@ headers = {
 
 
 def crawlcontent(url):
-    resp = requests.get(url,headers=headers)
+    resp = requests.get(url,headers=headers,timeout=10)
     resp.encoding = 'gbk'
     page = resp.text
     #print(page)
@@ -36,7 +36,7 @@ def crawlcontent(url):
 
 
 def crawlchater(url):
-    resp = requests.get(url,headers=headers)
+    resp = requests.get(url,headers=headers,timeout=10)
     resp.encoding = 'gbk'
     page = resp.text
     # print(page)
