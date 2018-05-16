@@ -59,9 +59,14 @@ if __name__ == '__main__':
     url3 = 'http://www.biquge.com.tw/16_16209/'  # 我是至尊
     url4 = 'http://www.biquge.com.tw/8_8568/'  # 伏天氏
 
+    tag = True
+
     crawlchater(url2)
-    # print(data)
-    chapter = input("输入你想看的章节：")
-    newurl = 'https://www.biquge.com.tw' + data[chapter]
-    #print(newurl)
-    crawlcontent(newurl)
+    while tag:
+        chapter = input("输入你想看的章节：")
+        newurl = 'https://www.biquge.com.tw' + data[chapter]
+        crawlcontent(newurl)
+        if chapter == '':
+            tag = False
+        else:
+            pass
