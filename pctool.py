@@ -64,9 +64,8 @@ if __name__ == '__main__':
     crawlchater(url2)
     while tag:
         chapter = input("输入你想看的章节：")
-        newurl = 'https://www.biquge.com.tw' + data[chapter]
-        crawlcontent(newurl)
         if chapter == '':
             tag = False
         else:
-            pass
+            newurl = 'https://www.biquge.com.tw' + data[chapter]
+            crawlcontent(newurl)
