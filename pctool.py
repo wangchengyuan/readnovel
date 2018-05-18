@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     tag = True
 
-    crawlchater(url2)
+    crawlchater(url1)
     while tag:
         chapter = input("输入你想看的章节：")
         if chapter == '':
