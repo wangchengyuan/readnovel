@@ -1,5 +1,6 @@
 import os
 import re
+import novelconfig
 try:
     import requests
 except:
@@ -8,7 +9,6 @@ except:
 
 
 data = {}
-data2 = {}
 chapterdata = []
 
 headers = {
@@ -27,45 +27,37 @@ def crawlcontent(url):
     resp = requests.get(url,headers=headers,timeout=10)
     resp.encoding = 'gbk'
     page = resp.text
-    #print(page)
-    ret = 'nbsp;&nbsp;&nbsp;&nbsp(.*?)\<'
+    ret = 'nbsp;&nbsp;&nbsp;&nbsp;(.*?)\<'
     recontent = re.findall(ret, page)
-    for rec in recontent:
-        #rec
-        print(rec.replace(';', ''))
+    return recontent
 
 
 def crawlchater(url):
     resp = requests.get(url,headers=headers,timeout=10)
     resp.encoding = 'gbk'
     page = resp.text
-    # print(page)
     rex = 'href="(.*?)">第(.*?)章(.*?)\<'
     recontent = re.findall(rex, page)
     print("现在最新章节如下：")
     for rec in recontent:
-        data[rec[1]] = rec[0]
-        data2[rec[1]] = rec[2]
+        data[rec[1]] = (rec[0],rec[2]) #字典rec[1]为章节数,rec[0]为章节url,rec[2]为章节名
         chapterdata.append(rec[1])
     for chapterd in chapterdata[-10:]:
-        print(chapterd, data2[chapterd])
-    # print(chapterdata[-10:])
+        print(chapterd, data[chapterd][1])
+
+#def localrecord():
 
 
 if __name__ == '__main__':
-    # 注意在运行之前，先确保该文件的同路径下存在一个download的文件夹, 用于存放爬虫下载的图片
-    url1 = 'http://www.biquge.com.tw/17_17319/'  # 天神诀
-    url2 = 'http://www.biquge.com.tw/16_16379/'  # 至尊剑皇
-    url3 = 'http://www.biquge.com.tw/16_16209/'  # 我是至尊
-    url4 = 'http://www.biquge.com.tw/8_8568/'  # 伏天氏
-
+    url=novelconfig.novelurls['url1']
     tag = True
-
-    crawlchater(url1)
+    crawlchater(url)
     while tag:
         chapter = input("输入你想看的章节：")
         if chapter == '':
             tag = False
         else:
-            newurl = 'https://www.biquge.com.tw' + data[chapter]
-            crawlcontent(newurl)
+            newurl = 'https://www.biquge.com.tw' + data[chapter][0]
+            content=crawlcontent(newurl)
+            for con in content:
+                print(con)
